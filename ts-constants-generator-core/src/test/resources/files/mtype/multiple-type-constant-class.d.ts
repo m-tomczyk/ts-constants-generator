@@ -1,0 +1,15 @@
+export declare const B_BOOLEAN: boolean;
+export declare const B_BYTE: number;
+export declare const B_DOUBLE: number;
+export declare const B_FLOAT: number;
+export declare const B_INT_CONSTANT: number;
+export declare const B_LONG_CONSTANT: number;
+export declare const B_SHORT: number;
+export declare const STRING_CONSTANT: string;
+export declare const S_BOOLEAN: boolean;
+export declare const S_BYTE: number;
+export declare const S_DOUBLE: number;
+export declare const S_FLOAT: number;
+export declare const S_INT_CONSTANT: number;
+export declare const S_LONG_CONSTANT: number;
+export declare const S_SHORT: number;

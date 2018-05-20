@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.B_BOOLEAN = true;
+exports.B_BYTE = 1;
+exports.B_DOUBLE = 1.0;
+exports.B_FLOAT = 1.0;
+exports.B_INT_CONSTANT = 1;
+exports.B_LONG_CONSTANT = 1;
+exports.B_SHORT = 1;
+exports.STRING_CONSTANT = 'VALUE';
+exports.S_BOOLEAN = true;
+exports.S_BYTE = 1;
+exports.S_DOUBLE = 1.0;
+exports.S_FLOAT = 1.0;
+exports.S_INT_CONSTANT = 1;
+exports.S_LONG_CONSTANT = 1;
+exports.S_SHORT = 1;
