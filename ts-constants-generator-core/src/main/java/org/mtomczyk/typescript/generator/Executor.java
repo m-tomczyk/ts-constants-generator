@@ -23,7 +23,6 @@
  */
 package org.mtomczyk.typescript.generator;
 
-import org.mtomczyk.typescript.generator.mapper.Mapper;
 import org.mtomczyk.typescript.generator.packagejson.PackageJson;
 import org.mtomczyk.typescript.generator.results.GenerationResult;
 

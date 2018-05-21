@@ -108,7 +108,7 @@ public class TsConstantsGeneratorMavenMojo extends AbstractMojo {
      * Paths for mappers scanning
      */
     @Parameter
-    private Set<String> mappers;
+    private Set<String> mappings;
 
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
@@ -133,8 +133,8 @@ public class TsConstantsGeneratorMavenMojo extends AbstractMojo {
             TsConstantsGeneratorBuilder builder = new TsConstantsGeneratorBuilder();
             builder.usingUrlClassLoader(loader);
             builder.scanningPaths(paths);
-            if (mappers != null) {
-                builder.mapperPaths(mappers);
+            if (mappings != null) {
+                builder.mapperPaths(mappings);
             }
             builder.useStandaloneMode();
             if (packageName != null) {

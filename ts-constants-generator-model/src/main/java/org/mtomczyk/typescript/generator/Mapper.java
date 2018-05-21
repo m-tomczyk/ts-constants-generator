@@ -21,10 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package org.mtomczyk.typescript.generator.mapper;
-
-import org.mtomczyk.typescript.generator.PublicApi;
-import org.mtomczyk.typescript.generator.TsType;
+package org.mtomczyk.typescript.generator;
 
 /**
  * Mapper for Typescript constants types. Implement to provide information how to convert Java type to Typescript type

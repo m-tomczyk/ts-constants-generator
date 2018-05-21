@@ -10,9 +10,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>ts-constants-generator-annotations</artifactId>
+    <artifactId>ts-constants-generator-model</artifactId>
     <packaging>jar</packaging>
-    <name>Typescript constants generator annotations</name>
+    <name>Typescript constants generator model and annotations</name>
 
     <build>
         <plugins>

@@ -24,7 +24,6 @@
 package org.mtomczyk.typescript.generator;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
-import org.mtomczyk.typescript.generator.mapper.Mapper;
 
 import java.io.File;
 import java.net.URLClassLoader;
@@ -328,7 +327,12 @@ public class TsConstantsGeneratorBuilder {
                             e.printStackTrace();
                         }
 
-                        throw new IllegalArgumentException("Could not create custom mapper: " + e.getLocalizedMessage(), e);
+                        throw new IllegalArgumentException("Could not create custom mapper: "
+                                + System.lineSeparator()
+                                + e.getLocalizedMessage()
+                                + System.lineSeparator()
+                                + System.lineSeparator()
+                                + "Remember that your mapper must have public no-argument constructor", e);
                     }
                 }).scan();
 

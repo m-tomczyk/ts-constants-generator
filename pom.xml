@@ -52,7 +52,7 @@
     </properties>
 
     <modules>
-        <module>ts-constants-generator-annotations</module>
+        <module>ts-constants-generator-model</module>
         <module>ts-constants-generator-core</module>
         <module>ts-constants-generator-maven</module>
     </modules>
@@ -114,5 +114,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>with-example</id>
+            <modules>
+                <module>ts-constants-generator-example</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>

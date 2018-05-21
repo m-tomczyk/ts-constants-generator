@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.mtomczyk</groupId>
+        <artifactId>ts-constants-generator</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ts-constants-generator-example</artifactId>
+    <packaging>jar</packaging>
+    <name>Typescript constants generator example</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>cz.habarta.typescript-generator</groupId>
+                <artifactId>typescript-generator-maven-plugin</artifactId>
+                <version>2.2.413</version>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jsonLibrary>jackson2</jsonLibrary>
+                    <classes>
+                        <class>org.mtomczyk.example.ModelClass</class>
+                    </classes>
+                    <outputKind>module</outputKind>
+                    <outputFile>ts/example.d.ts</outputFile>
+                    <generateNpmPackageJson>true</generateNpmPackageJson>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mtomczyk</groupId>
+                <artifactId>ts-constants-generator-maven</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <paths>
+                        <path>org.mtomczyk.example</path>
+                    </paths>
+                    <verbose>true</verbose>
+                    <annotationMode>true</annotationMode>
+                    <targetPath>ts-constants-generator-example\ts</targetPath>
+                    <mappings>
+                        <mapping>org.mtomczyk.example</mapping>
+                    </mappings>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mtomczyk</groupId>
+            <artifactId>ts-constants-generator-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

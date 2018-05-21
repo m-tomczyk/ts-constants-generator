@@ -23,6 +23,7 @@
  */
 package org.mtomczyk.typescript.generator.mapper;
 
+import org.mtomczyk.typescript.generator.Mapper;
 import org.mtomczyk.typescript.generator.TsType;
 
 public class FloatMapper implements Mapper<Float> {
