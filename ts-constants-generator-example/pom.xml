@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mtomczyk</groupId>
+        <groupId>dev.mtomczyk</groupId>
         <artifactId>ts-constants-generator</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -32,7 +32,7 @@
                 <configuration>
                     <jsonLibrary>jackson2</jsonLibrary>
                     <classes>
-                        <class>org.mtomczyk.example.ModelClass</class>
+                        <class>dev.mtomczyk.example.ModelClass</class>
                     </classes>
                     <outputKind>module</outputKind>
                     <outputFile>ts/example.d.ts</outputFile>
@@ -40,7 +40,7 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.mtomczyk</groupId>
+                <groupId>dev.mtomczyk</groupId>
                 <artifactId>ts-constants-generator-maven</artifactId>
                 <version>${project.version}</version>
                 <executions>
@@ -54,7 +54,7 @@
                 </executions>
                 <configuration>
                     <paths>
-                        <path>org.mtomczyk.example</path>
+                        <path>dev.mtomczyk.example</path>
                     </paths>
                     <verbose>true</verbose>
                     <annotationMode>true</annotationMode>
@@ -62,7 +62,7 @@
                     <standaloneMode>false</standaloneMode>
                     <targetPath>ts</targetPath>
                     <mappings>
-                        <mapping>org.mtomczyk.example</mapping>
+                        <mapping>dev.mtomczyk.example</mapping>
                     </mappings>
                 </configuration>
             </plugin>
@@ -71,7 +71,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mtomczyk</groupId>
+            <groupId>dev.mtomczyk</groupId>
             <artifactId>ts-constants-generator-model</artifactId>
             <version>${project.version}</version>
         </dependency>
