@@ -1,6 +1,11 @@
 package org.mtomczyk.example;
 
+import org.mtomczyk.typescript.generator.TypescriptConstant;
+
 public class ModelClass {
+    @TypescriptConstant
+    public static final String EXAMPLE = "EXAMPLE";
+
     private String name;
     private int age;
 

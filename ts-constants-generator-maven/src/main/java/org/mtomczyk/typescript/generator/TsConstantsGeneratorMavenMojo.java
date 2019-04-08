@@ -99,6 +99,12 @@ public class TsConstantsGeneratorMavenMojo extends AbstractMojo {
     private boolean annotationMode;
 
     /**
+     * Should generator create package.json file
+     */
+    @Parameter
+    private boolean standaloneMode;
+
+    /**
      * Paths for classes scanning
      */
     @Parameter(required = true)
@@ -128,6 +134,13 @@ public class TsConstantsGeneratorMavenMojo extends AbstractMojo {
                 }
             }
 
+            String finalTargetPath;
+            if (!new File(targetPath).isAbsolute()) {
+                finalTargetPath = project.getBasedir() + (targetPath.startsWith(File.separator) ? targetPath : File.separator + targetPath);
+            } else {
+                finalTargetPath = targetPath;
+            }
+
             URLClassLoader loader = new URLClassLoader(projectClasspathList.toArray(new URL[0]), Thread.currentThread().getContextClassLoader());
 
             TsConstantsGeneratorBuilder builder = new TsConstantsGeneratorBuilder();
@@ -136,7 +149,9 @@ public class TsConstantsGeneratorMavenMojo extends AbstractMojo {
             if (mappings != null) {
                 builder.mapperPaths(mappings);
             }
-            builder.useStandaloneMode();
+            if (standaloneMode) {
+                builder.useStandaloneMode();
+            }
             if (packageName != null) {
                 builder.withPackageName(packageName);
             }
@@ -148,9 +163,8 @@ public class TsConstantsGeneratorMavenMojo extends AbstractMojo {
 
                 builder.withTargetFilename(targetFileName);
             }
-            if (targetPath != null) {
-
-                builder.withTargetPath(targetPath);
+            if (finalTargetPath != null) {
+                builder.withTargetPath(finalTargetPath);
             }
             if (annotationMode) {
                 builder.useAnnotationMode();

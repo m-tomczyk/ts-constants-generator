@@ -58,7 +58,9 @@
                     </paths>
                     <verbose>true</verbose>
                     <annotationMode>true</annotationMode>
-                    <targetPath>ts-constants-generator-example\ts</targetPath>
+                    <targetFileName>constants</targetFileName>
+                    <standaloneMode>false</standaloneMode>
+                    <targetPath>ts</targetPath>
                     <mappings>
                         <mapping>org.mtomczyk.example</mapping>
                     </mappings>
