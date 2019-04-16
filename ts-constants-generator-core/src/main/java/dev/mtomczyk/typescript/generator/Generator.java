@@ -1,9 +1,17 @@
 package dev.mtomczyk.typescript.generator;
 
 import dev.mtomczyk.typescript.generator.mapper.*;
-import dev.mtomczyk.typescript.generator.mapper.*;
 import dev.mtomczyk.typescript.generator.results.FieldResult;
 import dev.mtomczyk.typescript.generator.results.GenerationResult;
+import dev.mtomczyk.typescript.generator.results.SubGenerationResult;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /*
  * MIT License
  *
@@ -27,14 +35,6 @@ import dev.mtomczyk.typescript.generator.results.GenerationResult;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import dev.mtomczyk.typescript.generator.results.SubGenerationResult;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.*;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 final class Generator {
 
@@ -160,7 +160,11 @@ final class Generator {
     }
 
     private Supplier<Stream<FieldWithName>> getConstantFields(final Set<Class<?>> clazzes) {
-        return () -> clazzes.stream().flatMap(aClass -> getConstantFields(aClass).get());
+        return () -> clazzes.stream()
+                .flatMap(aClass -> getConstantFields(aClass)
+                        .get()
+                        .filter(fieldWithName -> fieldWithName.getField().getDeclaringClass().equals(aClass))
+                );
     }
 
     private TsType getConstantType(final Class<?> type) {

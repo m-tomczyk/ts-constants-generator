@@ -24,6 +24,8 @@
 package dev.mtomczyk.typescript.generator;
 
 import dev.mtomczyk.typescript.generator.classes.clean.*;
+import dev.mtomczyk.typescript.generator.classes.inheritance.Child;
+import dev.mtomczyk.typescript.generator.classes.inheritance.Parent;
 import dev.mtomczyk.typescript.generator.results.GenerationResult;
 import org.junit.Assert;
 import org.junit.Test;
@@ -122,4 +124,15 @@ public class GenerateConstantCleanTest {
     }
 
 
+    @Test
+    public void testInheritanceIgnored() {
+        GenerationResult child = setupGenerator().generateFor(Child.class);
+        GenerationResult parent = setupGenerator().generateFor(Parent.class);
+
+        Assert.assertEquals(TestUtils.getFile("files/inheritance/empty-class.d.ts", getClass().getClassLoader()), child.getDeclarationFile());
+        Assert.assertEquals(TestUtils.getFile("files/inheritance/empty-class.js", getClass().getClassLoader()), child.getImplementationFile());
+
+        Assert.assertEquals(TestUtils.getFile("files/inheritance/inheritance-class.d.ts", getClass().getClassLoader()), parent.getDeclarationFile());
+        Assert.assertEquals(TestUtils.getFile("files/inheritance/inheritance-class.js", getClass().getClassLoader()), parent.getImplementationFile());
+    }
 }
