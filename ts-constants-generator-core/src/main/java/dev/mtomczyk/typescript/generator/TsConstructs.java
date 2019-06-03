@@ -23,12 +23,12 @@
  */
 package dev.mtomczyk.typescript.generator;
 
-class TsConstructs {
+public class TsConstructs {
     static final String FILE_NAME_EXT_PACKAGE_JSON = "package.json";
     static final String FILE_EXT_JS = ".js";
     static final String FILE_EXT_D_TS = ".d.ts";
 
-    static String emmitConstantDeclaration(String name, TsType type) {
+    public static String emmitConstantDeclaration(String name, TsType type) {
         return "export declare const "
                 + name
                 + ": "
@@ -36,7 +36,7 @@ class TsConstructs {
                 + ";";
     }
 
-    static String emmitConstantImplementation(String name, String value) {
+    public static String emmitConstantImplementation(String name, String value) {
         return "exports." + name + " = " + value + ";";
     }
 }

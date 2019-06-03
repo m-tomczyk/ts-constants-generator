@@ -13,11 +13,9 @@ public class GenerateConstantsMappersTest {
 
     private Generator setupGenerator() {
         Set<Mapper> mappers = new HashSet<>();
-
         mappers.add(new SimpleCurrencyMapper());
 
-
-        return new Generator(mappers,true, false);
+        return new Generator(mappers, true, false);
     }
 
     @Test

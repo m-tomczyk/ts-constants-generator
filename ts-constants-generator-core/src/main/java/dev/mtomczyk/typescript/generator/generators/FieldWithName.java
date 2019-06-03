@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.mtomczyk.typescript.generator;
+package dev.mtomczyk.typescript.generator.generators;
 
 import org.jetbrains.annotations.NotNull;
 

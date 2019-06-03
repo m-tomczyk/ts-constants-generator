@@ -29,11 +29,6 @@ import dev.mtomczyk.typescript.generator.classes.inheritance.Parent;
 import dev.mtomczyk.typescript.generator.results.GenerationResult;
 import org.junit.Assert;
 import org.junit.Test;
-import dev.mtomczyk.typescript.generator.classes.clean.*;
-
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class GenerateConstantCleanTest {
 
@@ -49,17 +44,6 @@ public class GenerateConstantCleanTest {
     }
 
     @Test
-    public void testRecognizedConstantsInClass() {
-        Supplier<Stream<FieldWithName>> constantFields = setupGenerator().getConstantFields(MixedConstantClass.class);
-
-        String classConstantNames = String.join(",", constantFields.get()
-                .map(FieldWithName::getName)
-                .collect(Collectors.toList()));
-
-        Assert.assertEquals("STRING_CONSTANT,INTEGER_CONSTANT", classConstantNames);
-    }
-
-    @Test
     public void testDuplicationException() {
         try {
             setupGenerator().generateFor(TestUtils.makeClassSet(SingleConstantDupClass.class, SingleConstantClass.class));
@@ -69,25 +53,11 @@ public class GenerateConstantCleanTest {
     }
 
     @Test
-    public void testSingleConstantImplementation() {
-        Generator tsCG = setupGenerator();
+    public void testRecognizedOnlyConstantsInClass() {
+        GenerationResult result = setupGenerator().generateFor(MixedConstantClass.class);
 
-        Assert.assertEquals("exports.CONSTANT_NAME = 'CONSTANT_VALUE';",
-                tsCG.getConstantResult(tsCG.getConstantFields(SingleConstantClass.class).get())
-                        .findFirst()
-                        .orElseThrow(RuntimeException::new)
-                        .getImplementation());
-    }
-
-    @Test
-    public void testSingleConstantDeclaration() {
-        Generator tsCG = setupGenerator();
-
-        Assert.assertEquals("export declare const CONSTANT_NAME: string;",
-                tsCG.getConstantResult(tsCG.getConstantFields(SingleConstantClass.class).get())
-                        .findFirst()
-                        .orElseThrow(RuntimeException::new)
-                        .getDeclaration());
+        Assert.assertEquals(TestUtils.getFile("files/mixed/mixed-constant-class.d.ts", getClass().getClassLoader()), result.getDeclarationFile());
+        Assert.assertEquals(TestUtils.getFile("files/mixed/mixed-constant-class.js", getClass().getClassLoader()), result.getImplementationFile());
     }
 
     @Test

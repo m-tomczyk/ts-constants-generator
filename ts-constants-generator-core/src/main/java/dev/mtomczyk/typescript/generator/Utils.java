@@ -23,8 +23,8 @@
  */
 package dev.mtomczyk.typescript.generator;
 
-class Utils {
-    static Class<?> toWrapperClass(final Class<?> type) {
+public class Utils {
+    public static Class<?> toWrapperClass(final Class<?> type) {
         if (type == null) {
             throw new IllegalArgumentException("Type cannot be null");
         }
@@ -50,7 +50,7 @@ class Utils {
             throw new IllegalArgumentException("Primitive type not supported: " + type.getName());
     }
 
-    static String createJsFileHeader() {
+    public static String createJsFileHeader() {
         return "\"use strict\";" +
                 System.lineSeparator() +
                 "Object.defineProperty(exports, \"__esModule\", { value: true });" +
