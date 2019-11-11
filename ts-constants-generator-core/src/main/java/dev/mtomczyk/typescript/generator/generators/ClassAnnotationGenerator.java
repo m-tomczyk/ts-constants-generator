@@ -7,7 +7,6 @@ import dev.mtomczyk.typescript.generator.results.SubGenerationResult;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,7 @@ public final class ClassAnnotationGenerator {
 
     public SubGenerationResult generate(final Set<Class<?>> clazzes) {
         Set<FieldResult> todo = clazzes.stream()
-                .filter(clasz -> clasz.isAnnotationPresent(TypescriptAnnotationConstant.class))
+                .filter(clazz -> annotationMode && clazz.isAnnotationPresent(TypescriptAnnotationConstant.class))
                 .flatMap(clazz -> {
                     TypescriptAnnotationConstant typescriptAnnotationConstant = clazz.getDeclaredAnnotation(TypescriptAnnotationConstant.class);
                     Annotation properAnnotation = clazz.getDeclaredAnnotation(typescriptAnnotationConstant.value());
@@ -35,7 +34,9 @@ public final class ClassAnnotationGenerator {
                             .filter(method -> method.getName().equals(typescriptAnnotationConstant.annotationField()))
                             .map(method -> {
                                 try {
-                                    String name = !typescriptAnnotationConstant.name().isEmpty() ? typescriptAnnotationConstant.name() : clazz.getSimpleName();
+                                    String name = !typescriptAnnotationConstant.name().isEmpty()
+                                            ? typescriptAnnotationConstant.name()
+                                            : clazz.getSimpleName() + "$" + properAnnotation.annotationType().getSimpleName();
                                     //noinspection unchecked
                                     return new FieldResult(
                                             name,
@@ -47,7 +48,7 @@ public final class ClassAnnotationGenerator {
                                                     getMapperByType(method.getReturnType()).getValue(method.invoke(properAnnotation)))
                                     );
                                 } catch (IllegalAccessException | InvocationTargetException e) {
-                                    return null;
+                                    throw new IllegalStateException("Cannot get annotation value", e);
                                 }
                             });
                 }).collect(Collectors.toSet());

@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AnnotatedClass = 'CONSTANT_VALUE';
+exports.AnnotatedClass$SimpleAnnotation = 'CONSTANT_VALUE';
