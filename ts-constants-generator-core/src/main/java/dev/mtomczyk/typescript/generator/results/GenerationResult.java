@@ -23,14 +23,25 @@
  */
 package dev.mtomczyk.typescript.generator.results;
 
+import dev.mtomczyk.typescript.generator.Utils;
+
 public class GenerationResult {
 
     private final String declarationFile;
     private final String implementationFile;
 
-    public GenerationResult(String declarationFile, String implementationFile) {
-        this.declarationFile = declarationFile;
-        this.implementationFile = implementationFile;
+    public GenerationResult() {
+        this.declarationFile = "";
+        this.implementationFile = Utils.createJsFileHeader();
+    }
+
+    private GenerationResult(String declarationFile, String implementationFile, FieldResult fieldResult) {
+        this.declarationFile = declarationFile.concat(fieldResult.getDeclaration()).concat(System.lineSeparator());
+        this.implementationFile = implementationFile.concat(fieldResult.getImplementation()).concat(System.lineSeparator());
+    }
+
+    public GenerationResult append(FieldResult fieldResult) {
+        return new GenerationResult(declarationFile, implementationFile, fieldResult);
     }
 
     public String getDeclarationFile() {

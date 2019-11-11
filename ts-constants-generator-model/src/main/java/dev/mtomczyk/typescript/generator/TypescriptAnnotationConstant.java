@@ -1,9 +1,6 @@
 package dev.mtomczyk.typescript.generator;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Use to mark class as typescript constant.
@@ -13,7 +10,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @PublicApi
 public @interface TypescriptAnnotationConstant {
-    Class<?> value();
+    Class<? extends Annotation> value();
 
     String name() default "";
 

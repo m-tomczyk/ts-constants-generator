@@ -1,15 +1,3 @@
-package dev.mtomczyk.typescript.generator;
-
-import dev.mtomczyk.typescript.generator.generators.FieldGenerator;
-import dev.mtomczyk.typescript.generator.mapper.*;
-import dev.mtomczyk.typescript.generator.results.GenerationResult;
-import dev.mtomczyk.typescript.generator.results.SubGenerationResult;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 /*
  * MIT License
  *
@@ -33,6 +21,21 @@ import java.util.stream.Stream;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package dev.mtomczyk.typescript.generator;
+
+import dev.mtomczyk.typescript.generator.generators.ClassAnnotationGenerator;
+import dev.mtomczyk.typescript.generator.generators.FieldGenerator;
+import dev.mtomczyk.typescript.generator.mapper.*;
+import dev.mtomczyk.typescript.generator.results.FieldResult;
+import dev.mtomczyk.typescript.generator.results.GenerationResult;
+import dev.mtomczyk.typescript.generator.results.SubGenerationResult;
+
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 final class Generator {
 
@@ -84,11 +87,18 @@ final class Generator {
     GenerationResult generateFor(final Set<Class<?>> classes) {
         System.out.println("Generating constants from " + classes.size() + " classes");
         final SubGenerationResult fieldResult = (new FieldGenerator(mappers, verbose, annotationMode)).generate(classes);
+        final SubGenerationResult annotationResult = (new ClassAnnotationGenerator(mappers, verbose, annotationMode).generate(classes));
 
-        return new GenerationResult(
-                fieldResult.getDeclarations(),
-                (new StringBuilder(Utils.createJsFileHeader())).append(fieldResult.getImplementations()).toString());
+        GenerationResult result = new GenerationResult();
+
+        LinkedHashSet<FieldResult> collect = Stream.concat(fieldResult.getFieldResults(), annotationResult.getFieldResults())
+                .sorted(Comparator.comparing(FieldResult::getName))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+
+        for (FieldResult field : collect) {
+            result = result.append(field);
+        }
+
+        return result;
     }
-
-
 }

@@ -23,21 +23,18 @@
  */
 package dev.mtomczyk.typescript.generator.results;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
 public class SubGenerationResult {
 
-    private final String declarations;
-    private final String implementations;
+    private final Set<FieldResult> fieldResults;
 
-    public SubGenerationResult(String declarations, String implementations) {
-        this.declarations = declarations;
-        this.implementations = implementations;
+    public SubGenerationResult(Set<FieldResult> fieldResults) {
+        this.fieldResults = fieldResults;
     }
 
-    public String getDeclarations() {
-        return declarations;
-    }
-
-    public String getImplementations() {
-        return implementations;
+    public Stream<FieldResult> getFieldResults() {
+        return fieldResults.stream();
     }
 }

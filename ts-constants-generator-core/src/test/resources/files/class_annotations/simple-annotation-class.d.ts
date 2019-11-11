@@ -1,1 +1,1 @@
-export declare const AnnotationClass: string;
+export declare const AnnotatedClass: string;

@@ -27,22 +27,11 @@ public class FieldGenerator {
     }
 
     private SubGenerationResult resultFor(final Set<Class<?>> clazzes) {
-        final StringBuilder declaration = new StringBuilder();
-        final StringBuilder implementation = new StringBuilder();
-
         final List<FieldWithName> fields = getConstantFields(clazzes).get().collect(Collectors.toList());
         System.out.println("Found " + fields.size() + " fields considered as constants");
         checkForDuplicatesAndThrow(fields.stream());
 
-        Collections.sort(fields);
-
-        getConstantResult(fields.stream()).forEach(fieldResult ->
-        {
-            declaration.append(fieldResult.getDeclaration()).append(System.lineSeparator());
-            implementation.append(fieldResult.getImplementation()).append(System.lineSeparator());
-        });
-
-        return new SubGenerationResult(declaration.toString(), implementation.toString());
+        return new SubGenerationResult(getConstantResult(fields.stream()).collect(Collectors.toSet()));
     }
 
     private Supplier<Stream<FieldWithName>> getConstantFields(final Set<Class<?>> clazzes) {
@@ -131,6 +120,7 @@ public class FieldGenerator {
                     try {
                         //noinspection unchecked
                         return new FieldResult(
+                                field.getName(),
                                 TsConstructs.emmitConstantDeclaration(
                                         field.getName(),
                                         getConstantType(field.getField().getType())),

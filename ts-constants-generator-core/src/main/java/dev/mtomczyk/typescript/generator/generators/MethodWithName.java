@@ -21,28 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.mtomczyk.typescript.generator.results;
+package dev.mtomczyk.typescript.generator.generators;
 
-public class FieldResult {
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Method;
+
+class MethodWithName implements Comparable<MethodWithName> {
     private final String name;
-    private final String declaration;
-    private final String implementation;
+    private final Method method;
 
-    public FieldResult(String name, String declaration, String implementation) {
+    MethodWithName(String name, Method method) {
         this.name = name;
-        this.declaration = declaration;
-        this.implementation = implementation;
+        this.method = method;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public String getDeclaration() {
-        return declaration;
+    Method getMethod() {
+        return method;
     }
 
-    public String getImplementation() {
-        return implementation;
+    @Override
+    public int compareTo(@NotNull MethodWithName fieldWithName) {
+        return name.compareTo(fieldWithName.name);
     }
 }
