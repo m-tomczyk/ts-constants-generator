@@ -305,6 +305,7 @@ public class TsConstantsGeneratorBuilder {
 
         if (annotationMode) {
             scanner.matchClassesWithFieldAnnotation(TypescriptConstant.class, (aClass, field) -> consolidatedClasses.add(aClass)).scan();
+            scanner.matchClassesWithAnnotation(TypescriptAnnotationConstant.class, consolidatedClasses::add).scan();
         } else {
             scanner.matchAllStandardClasses(consolidatedClasses::add).scan();
         }
