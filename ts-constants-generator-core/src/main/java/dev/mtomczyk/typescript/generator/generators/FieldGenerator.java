@@ -110,7 +110,7 @@ public class FieldGenerator {
                         name = field.getName();
                     }
 
-                    return new FieldWithName(name, field);
+                    return new FieldWithName(clazz.getSimpleName() + '$' +name, field);
                 });
     }
 

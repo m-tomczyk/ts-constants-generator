@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ANNOTATION_CONST = 'VALUE';
+exports.MixedAnnotationClass$ANNOTATION_CONST = 'VALUE';

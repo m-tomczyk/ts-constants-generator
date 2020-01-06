@@ -1,1 +1,1 @@
-export declare const SC_CONSTANT: number;
+export declare const SimpleCurrencyClass$SC_CONSTANT: number;

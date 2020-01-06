@@ -1,1 +1,1 @@
-export declare const AnnotatedClass$SimpleAnnotation: string;
+export declare const AnnotatedClass@SimpleAnnotation: string;

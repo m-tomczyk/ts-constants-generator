@@ -1,1 +1,1 @@
-export declare const PARENT_CONST: string;
+export declare const Parent$PARENT_CONST: string;

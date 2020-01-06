@@ -1,1 +1,1 @@
-export declare const NEW_NAME: string;
+export declare const ChangeNameClass$NEW_NAME: string;

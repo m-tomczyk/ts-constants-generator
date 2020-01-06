@@ -24,6 +24,7 @@
 package dev.mtomczyk.typescript.generator;
 
 import dev.mtomczyk.typescript.generator.classes.clean.*;
+import dev.mtomczyk.typescript.generator.classes.clean.dup.SingleConstantClass;
 import dev.mtomczyk.typescript.generator.classes.inheritance.Child;
 import dev.mtomczyk.typescript.generator.classes.inheritance.Parent;
 import dev.mtomczyk.typescript.generator.results.GenerationResult;
@@ -38,7 +39,7 @@ public class GenerateConstantCleanTest {
 
     @Test
     public void testHasResult() {
-        GenerationResult result = setupGenerator().generateFor(SingleConstantClass.class);
+        GenerationResult result = setupGenerator().generateFor(dev.mtomczyk.typescript.generator.classes.clean.SingleConstantClass.class);
 
         Assert.assertNotNull(result);
     }
@@ -46,7 +47,7 @@ public class GenerateConstantCleanTest {
     @Test
     public void testDuplicationException() {
         try {
-            setupGenerator().generateFor(TestUtils.makeClassSet(SingleConstantDupClass.class, SingleConstantClass.class));
+            setupGenerator().generateFor(TestUtils.makeClassSet(SingleConstantClass.class, dev.mtomczyk.typescript.generator.classes.clean.SingleConstantClass.class));
             Assert.fail("Duplicated constant names not detected");
         } catch (IllegalStateException ignored) {
         }
@@ -62,7 +63,7 @@ public class GenerateConstantCleanTest {
 
     @Test
     public void testSingleConstant() {
-        GenerationResult result = setupGenerator().generateFor(SingleConstantClass.class);
+        GenerationResult result = setupGenerator().generateFor(dev.mtomczyk.typescript.generator.classes.clean.SingleConstantClass.class);
 
         Assert.assertEquals(TestUtils.getFile("files/single/single-constant-class.d.ts", getClass().getClassLoader()), result.getDeclarationFile());
         Assert.assertEquals(TestUtils.getFile("files/single/single-constant-class.js", getClass().getClassLoader()), result.getImplementationFile());

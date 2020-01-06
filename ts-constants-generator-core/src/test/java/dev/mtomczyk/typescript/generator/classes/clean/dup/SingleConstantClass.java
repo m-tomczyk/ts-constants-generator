@@ -21,8 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.mtomczyk.typescript.generator.classes.clean;
+package dev.mtomczyk.typescript.generator.classes.clean.dup;
 
-public class SingleConstantDupClass {
+public class SingleConstantClass {
     public static final String CONSTANT_NAME = "ANOTHER_CONSTAT_VALUE";
 }

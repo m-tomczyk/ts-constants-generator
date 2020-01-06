@@ -36,7 +36,7 @@ public final class ClassAnnotationGenerator {
                                 try {
                                     String name = !typescriptAnnotationConstant.name().isEmpty()
                                             ? typescriptAnnotationConstant.name()
-                                            : clazz.getSimpleName() + "$" + properAnnotation.annotationType().getSimpleName();
+                                            : clazz.getSimpleName() + "@" + properAnnotation.annotationType().getSimpleName();
                                     //noinspection unchecked
                                     return new FieldResult(
                                             name,

@@ -1,1 +1,1 @@
-export declare const ANNOTATION_CONST: string;
+export declare const MixedAnnotationClass$ANNOTATION_CONST: string;

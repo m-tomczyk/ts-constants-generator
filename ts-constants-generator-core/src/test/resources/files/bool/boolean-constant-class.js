@@ -1,4 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BIG_BOOLEAN = true;
-exports.SMALL_BOOLEAN = false;
+exports.BooleanConstantClass$BIG_BOOLEAN = true;
+exports.BooleanConstantClass$SMALL_BOOLEAN = false;

@@ -1,1 +1,1 @@
-export declare const CONSTANT_NAME: string;
+export declare const SingleConstantClass$CONSTANT_NAME: string;

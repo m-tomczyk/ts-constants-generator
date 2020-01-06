@@ -43,7 +43,7 @@ Library provides maven plugin for code generation. Simple usage:
 <plugin>
     <groupId>dev.mtomczyk</groupId>
     <artifactId>ts-constants-generator-maven</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <executions>
         <execution>
             <id>generate</id>
