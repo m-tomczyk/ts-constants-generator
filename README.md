@@ -20,21 +20,65 @@ Output will consist of *.js file:
 ```javascript
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MY_API_ENDPOINT = 'api/crud/method/x';
+exports.ProjectConstants$MY_API_ENDPOINT = 'api/crud/method/x';
 ```
 
 And corresponding *.d.ts file:
 ```typescript
-export declare const MY_API_ENDPOINT: string;
+export declare const ProjectConstants$MY_API_ENDPOINT: string;
 ```
 
 ## Supported types
-All java primitive types and their wrappers with addition of ``String`` are supported.
+All java primitive types and their wrappers with addition of ``String`` are supported. 
+Array versions of all those types are supported as well.
 
 Additional type mappings can be defined using ``Mapper`` interface
 
+## Usage examples
+### Plain constants
+For variable to be considered as constant it has to be prefixed with following `public static final` 
+and annotated with `@TypescriptConstant`. By default, generated variable will always be named using 
+this convention: `ClassName$VARIABLE_NAME`. 
+
+Please note that because there is only single output file
+name conflict could appear when two constants of the same name from two different classes of the same
+name are visible to generator at same time (this will be reported and constants generation will fail).
+This can be mitigated passing String as argument to annotation, overriding variable name.
+
+Example of usage of various valid constant variables:
+```java
+public class MyConstants {
+    @TypescriptConstant()
+    public static final String API_ENDPOINT = "/api/v1.0/get_users"; // Will generate: MyConstants$API_ENDPOINT = "/api/v1.0/get_users"
+    @TypescriptConstant()
+    public static final Boolean IS_DEBUG_MODE_AVAILABLE = Boolean.TRUE; // Will generate: MyConstants$IMPORTANT_MAGIC_NUMBER = true
+    @TypescriptConstant()
+    public static final int IMPORTANT_MAGIC_NUMBER = 42; // Will generate: MyConstants$IMPORTANT_MAGIC_NUMBER = 42
+    @TypescriptConstant()
+    public static final int[] LOTTERY_NEXT_WINNING_NUMBERS = { 4, 8, 15, 16, 23, 42 }; // Will generate: MyConstants$LOTTERY_NEXT_WINNING_NUMBERS = [ 4, 8, 15, 16, 23, 42 ]
+    @TypescriptConstant("THIS_IS_NICER_NAME_ANYWAY")
+    public static final Double THIS_NAME_REPEATS_IN_EVERY_MY_CONSTANTS_CLASS = 1d; // Will generate: MyConstants$THIS_IS_NICER_NAME_ANYWAY = 1
+}
+```
+
+### Annotation constants
+Sometimes constants are used in class annotations and while you could create plain constant and like
+shown above and supply this to annotations it can be tedious. This library provides shorthand for such
+usage generating constants with following convention `MyClass$$AnnotationName:
+```java
+@TypescriptAnnoatationConstant(AnnotationName.class)
+@AnnotationName("SOME_CONSTANT")
+class MyClass {
+} // Will generate: MyClass$$AnnotationName = "SOME_CONSTANT
+
+@TypesctripAnnotationConstant(value = MoreComplexAnnoatation.class, name = "BETTER_NAME", annotationField = "name" )
+@MoreComplexAnnoatation(value = 1, name = "SOMETHING")
+class MyOtherClass {
+} // Will generate: MyOtherClass&&BETTER_NAME = "SOMETHING"
+```
+
 ## TypescriptConstant annotation
-By default project will scan only for fields annotated by @TypescriptConstant
+By default, project will scan only for fields annotated by @TypescriptConstant
 
 ## Maven plugin
 Library provides maven plugin for code generation. Simple usage:
@@ -43,7 +87,7 @@ Library provides maven plugin for code generation. Simple usage:
 <plugin>
     <groupId>dev.mtomczyk</groupId>
     <artifactId>ts-constants-generator-maven</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <executions>
         <execution>
             <id>generate</id>
@@ -55,8 +99,16 @@ Library provides maven plugin for code generation. Simple usage:
     </executions>
     <configuration>
         <paths>
-            <path>com.example</path>
+            <path>dev.mtomczyk.example</path>
         </paths>
+        <verbose>true</verbose>
+        <annotationMode>true</annotationMode>
+        <targetFileName>constants</targetFileName>
+        <standaloneMode>true</standaloneMode>
+        <targetPath>ts</targetPath>
+        <mappings>
+            <mapping>dev.mtomczyk.example</mapping>
+        </mappings>
     </configuration>
 </plugin>
 ```
