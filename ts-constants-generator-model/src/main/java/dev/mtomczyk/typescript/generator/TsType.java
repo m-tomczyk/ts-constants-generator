@@ -28,17 +28,23 @@ package dev.mtomczyk.typescript.generator;
  */
 @PublicApi
 public enum TsType {
-    NUMBER("number"),
-    STRING("string"),
-    BOOLEAN("boolean");
+    NUMBER("number", "number[]"),
+    STRING("string", "string[]"),
+    BOOLEAN("boolean", "boolean[]");
 
     private final String signature;
+    private final String arraySignature;
 
-    TsType(String signature) {
+    TsType(String signature, String arraySignature) {
         this.signature = signature;
+        this.arraySignature = arraySignature;
     }
 
     public String getSignature() {
         return signature;
+    }
+
+    public String getArraySignature() {
+        return arraySignature;
     }
 }

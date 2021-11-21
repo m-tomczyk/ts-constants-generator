@@ -29,23 +29,27 @@ public final class ClassAnnotationGenerator {
                     TypescriptAnnotationConstant typescriptAnnotationConstant = clazz.getDeclaredAnnotation(TypescriptAnnotationConstant.class);
                     Annotation properAnnotation = clazz.getDeclaredAnnotation(typescriptAnnotationConstant.value());
 
-                    return Arrays.stream(properAnnotation.getClass()
-                            .getDeclaredMethods())
+                    return Arrays.stream(properAnnotation.getClass().getDeclaredMethods())
                             .filter(method -> method.getName().equals(typescriptAnnotationConstant.annotationField()))
                             .map(method -> {
                                 try {
                                     String name = !typescriptAnnotationConstant.name().isEmpty()
                                             ? typescriptAnnotationConstant.name()
                                             : clazz.getSimpleName() + "$$" + properAnnotation.annotationType().getSimpleName();
+                                    final Class<?> fieldType = method.getReturnType();
                                     //noinspection unchecked
                                     return new FieldResult(
                                             name,
                                             TsConstructs.emmitConstantDeclaration(
                                                     name,
-                                                    getConstantType(method.getReturnType())),
+                                                    getConstantType(fieldType),
+                                                    fieldType.isArray()),
                                             TsConstructs.emmitConstantImplementation(
                                                     name,
-                                                    getMapperByType(method.getReturnType()).getValue(method.invoke(properAnnotation)))
+                                                    fieldType.isArray() ?
+                                                            getMapperByType(fieldType).getArrayValue(Utils.unpack(method.invoke(properAnnotation))) :
+                                                            getMapperByType(fieldType).getValue(method.invoke(properAnnotation))
+                                            )
                                     );
                                 } catch (IllegalAccessException | InvocationTargetException e) {
                                     throw new IllegalStateException("Cannot get annotation value", e);
