@@ -106,4 +106,12 @@ public class GenerateConstantCleanTest {
         Assert.assertEquals(TestUtils.getFile("files/inheritance/inheritance-class.d.ts", getClass().getClassLoader()), parent.getDeclarationFile());
         Assert.assertEquals(TestUtils.getFile("files/inheritance/inheritance-class.js", getClass().getClassLoader()), parent.getImplementationFile());
     }
+
+    @Test
+    public void testArrayConstants() {
+        GenerationResult result = setupGenerator().generateFor(ArrayConstantClass.class);
+
+        Assert.assertEquals(TestUtils.getFile("files/array/array-constant-class.d.ts", getClass().getClassLoader()), result.getDeclarationFile());
+        Assert.assertEquals(TestUtils.getFile("files/array/array-constant-class.js", getClass().getClassLoader()), result.getImplementationFile());
+    }
 }

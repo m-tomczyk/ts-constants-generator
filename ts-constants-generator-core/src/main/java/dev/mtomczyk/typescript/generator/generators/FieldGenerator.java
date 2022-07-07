@@ -4,6 +4,7 @@ import dev.mtomczyk.typescript.generator.*;
 import dev.mtomczyk.typescript.generator.results.FieldResult;
 import dev.mtomczyk.typescript.generator.results.SubGenerationResult;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -110,7 +111,7 @@ public class FieldGenerator {
                         name = field.getName();
                     }
 
-                    return new FieldWithName(clazz.getSimpleName() + '$' +name, field);
+                    return new FieldWithName(clazz.getSimpleName() + '$' + name, field);
                 });
     }
 
@@ -118,15 +119,21 @@ public class FieldGenerator {
         return stream
                 .map(field -> {
                     try {
+                        final Class<?> fieldType = field.getField().getType();
                         //noinspection unchecked
+                        final Mapper<Object> mapperByType = getMapperByType(fieldType);
                         return new FieldResult(
                                 field.getName(),
                                 TsConstructs.emmitConstantDeclaration(
                                         field.getName(),
-                                        getConstantType(field.getField().getType())),
+                                        getConstantType(fieldType),
+                                        fieldType.isArray()),
                                 TsConstructs.emmitConstantImplementation(
                                         field.getName(),
-                                        getMapperByType(field.getField().getType()).getValue(field.getField().get(null)))
+                                        fieldType.isArray() ?
+                                                mapperByType.getArrayValue(Utils.unpack(field.getField().get(null))) :
+                                                mapperByType.getValue(field.getField().get(null))
+                                )
                         );
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);

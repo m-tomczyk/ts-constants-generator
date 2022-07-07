@@ -23,6 +23,9 @@
  */
 package dev.mtomczyk.typescript.generator;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * Mapper for Typescript constants types. Implement to provide information how to convert Java type to Typescript type
  *
@@ -52,4 +55,14 @@ public interface Mapper<T> {
      * @return Typescript value as String
      */
     String getValue(T object);
+
+    /**
+     * Supply String representation matching Typescript type definition and expressing array value of supplied Java object array
+     *
+     * @param array Java type object array
+     * @return Typescript value as String
+     */
+    default String getArrayValue(T[] array) {
+        return "[" + Arrays.stream(array).map(this::getValue).collect(Collectors.joining(", ")) + "]";
+    }
 }

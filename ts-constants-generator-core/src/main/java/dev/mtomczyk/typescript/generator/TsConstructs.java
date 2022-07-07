@@ -28,11 +28,11 @@ public class TsConstructs {
     static final String FILE_EXT_JS = ".js";
     static final String FILE_EXT_D_TS = ".d.ts";
 
-    public static String emmitConstantDeclaration(String name, TsType type) {
+    public static String emmitConstantDeclaration(String name, TsType type, boolean isArray) {
         return "export declare const "
                 + name
                 + ": "
-                + type.getSignature()
+                + (isArray ? type.getArraySignature() : type.getSignature())
                 + ";";
     }
 

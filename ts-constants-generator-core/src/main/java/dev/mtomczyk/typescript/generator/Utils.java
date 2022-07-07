@@ -23,31 +23,40 @@
  */
 package dev.mtomczyk.typescript.generator;
 
+import java.lang.reflect.Array;
+
 public class Utils {
     public static Class<?> toWrapperClass(final Class<?> type) {
         if (type == null) {
             throw new IllegalArgumentException("Type cannot be null");
         }
-        if (!type.isPrimitive())
-            return type;
-        else if (int.class.equals(type))
+
+        final Class<?> checkType = type.isArray() ? type.getComponentType() : type;
+
+        if (checkType == null) {
+            throw new IllegalArgumentException("Type cannot be null");
+        }
+
+        if (!checkType.isPrimitive())
+            return checkType;
+        else if (int.class.equals(checkType))
             return Integer.class;
-        else if (double.class.equals(type))
+        else if (double.class.equals(checkType))
             return Double.class;
-        else if (char.class.equals(type))
+        else if (char.class.equals(checkType))
             return Character.class;
-        else if (boolean.class.equals(type))
+        else if (boolean.class.equals(checkType))
             return Boolean.class;
-        else if (long.class.equals(type))
+        else if (long.class.equals(checkType))
             return Long.class;
-        else if (float.class.equals(type))
+        else if (float.class.equals(checkType))
             return Float.class;
-        else if (short.class.equals(type))
+        else if (short.class.equals(checkType))
             return Short.class;
-        else if (byte.class.equals(type))
+        else if (byte.class.equals(checkType))
             return Byte.class;
         else
-            throw new IllegalArgumentException("Primitive type not supported: " + type.getName());
+            throw new IllegalArgumentException("Primitive type not supported: " + checkType.getName());
     }
 
     public static String createJsFileHeader() {
@@ -55,5 +64,13 @@ public class Utils {
                 System.lineSeparator() +
                 "Object.defineProperty(exports, \"__esModule\", { value: true });" +
                 System.lineSeparator();
+    }
+
+    public static Object[] unpack(Object array) {
+        Object[] result = new Object[Array.getLength(array)];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Array.get(array, i);
+        }
+        return result;
     }
 }
