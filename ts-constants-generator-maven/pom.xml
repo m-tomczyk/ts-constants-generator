@@ -10,6 +10,10 @@
         <version>0.0.4</version>
     </parent>
 
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
+
     <artifactId>ts-constants-generator-maven</artifactId>
     <packaging>maven-plugin</packaging>
     <name>Typescript constants generator maven plugin</name>
