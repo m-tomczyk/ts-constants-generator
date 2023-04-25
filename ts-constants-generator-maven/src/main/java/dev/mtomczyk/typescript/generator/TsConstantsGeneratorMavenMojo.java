@@ -58,7 +58,7 @@ import java.util.Set;
 /**
  * Generates Typescript declaration and implementation files with constants from given java classes.
  */
-@Mojo(name = TsConstantsGeneratorMavenMojo.GOAL_NAME, defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = TsConstantsGeneratorMavenMojo.GOAL_NAME, defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE, threadSafe = true)
 public class TsConstantsGeneratorMavenMojo extends AbstractMojo {
     static final String GOAL_NAME = "generate";
 
