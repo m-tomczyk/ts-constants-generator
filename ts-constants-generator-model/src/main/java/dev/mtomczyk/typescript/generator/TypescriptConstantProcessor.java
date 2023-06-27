@@ -38,7 +38,7 @@ import java.util.Set;
  * TypescriptConstant processor that ensures usage on proper fields.
  */
 @SupportedAnnotationTypes("TypescriptConstant")
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class TypescriptConstantProcessor extends AbstractProcessor {
 
