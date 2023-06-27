@@ -89,7 +89,7 @@ Library provides maven plugin for code generation. Simple usage:
 <plugin>
     <groupId>dev.mtomczyk</groupId>
     <artifactId>ts-constants-generator-maven</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.5</version>
     <executions>
         <execution>
             <id>generate</id>
